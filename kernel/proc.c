@@ -394,15 +394,12 @@ int getpinfo(struct pstat* table)  //create a pointer able to point to object of
 }
 
 
-int
-ps(struct pstat* table)
-{
+int ps(struct pstat* table) {
   struct proc *p;
   int i = 0;
-  // Enable interrupts
+
   sti();
 
-  // Loop over process table looking for process with pid.
   acquire(&ptable.lock);
   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
     if(p->state == RUNNING)
@@ -421,9 +418,7 @@ ps(struct pstat* table)
   return 0;
 }
 
-int
-chpr(int pid, int priority)
-{
+int chpr(int pid, int priority) {
   struct proc *p;
   acquire(&ptable.lock);
   for (p = ptable.proc; p < &ptable.proc[NPROC]; p++){

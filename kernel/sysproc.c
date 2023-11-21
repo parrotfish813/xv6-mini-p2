@@ -15,18 +15,13 @@ sys_fork(void)
   return fork();
 }
 
-
-// we use this system call for changing the number of tickets of some process
-// because you are calling assigntickets(ticketCount) which is define in proc.c you have to update defs.h with this new system call
-int sys_assigntickets(void)
-{
+int sys_assigntickets(void) {
 	int ticketCount;
-	if (argint(0, &ticketCount) < 0)  //this is the way to pass an integer as a parameters in sysproc.c, will pass this tickets in the experiment
-	{
-		return -1;  //validation line	
+	if (argint(0, &ticketCount) < 0) {
+		return -1;  	
 	}
 	else{
-		return assigntickets(ticketCount); //assigntickets big implementation is in pro.c
+		return assigntickets(ticketCount); 
 	}
 }
 	
@@ -59,9 +54,7 @@ sys_cluis(void)
   return counter;
 }
 
-int
-sys_getpid(void)
-{ 
+int sys_getpid(void) { 
   counter = counter +1;
   return proc->pid;
 }
@@ -114,37 +107,32 @@ sys_uptime(void)
   return xticks;
 }
 
-int
-sys_getpinfo(void)
-{
-  struct pstat *pTable; //create a pointer able to point to objects of the type pstat//
-	if(argptr(0, (void *)&pTable, sizeof(*pTable)) < 0){ //this is the way to pass a pointer to an object as a parameter in sysproc.c, will pass this tickets in the experiment
-		return -1;  //validation
+int sys_getpinfo(void){
+  struct pstat *pTable; 
+	if(argptr(0, (void *)&pTable, sizeof(*pTable)) < 0){ 
+		return -1;  
 	}
-	if(pTable == NULL){  //validation 
+	if(pTable == NULL){
 		return -1;
 	}			
-	getpinfo(pTable);  //call the getpinfo() in proc.c
+	getpinfo(pTable); 
   return 0;
 }
 
-int
-sys_ps(void)
+int sys_ps(void)
 {
-  struct pstat *pTable; //create a pointer able to point to objects of the type pstat//
-	if(argptr(0, (void *)&pTable, sizeof(*pTable)) < 0){ //this is the way to pass a pointer to an object as a parameter in sysproc.c, will pass this tickets in the experiment
-		return -1;  //validation
+  struct pstat *pTable;
+	if(argptr(0, (void *)&pTable, sizeof(*pTable)) < 0){
+		return -1; 
 	}
-	if(pTable == NULL){  //validation 
+	if(pTable == NULL){ 
 		return -1;
 	}
   ps(pTable);
   return 0;
 }
 
-int
-sys_chpr(void)
-{
+int sys_chpr(void) {
   int pid, pr;
   if (argint(0, &pid) < 0)
     return -1;

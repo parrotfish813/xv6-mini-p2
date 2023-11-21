@@ -3,8 +3,7 @@
 #include "user.h"
 #include "pstat.h"
 
-int main()
-{
+int main() {
     int i;
     struct pstat table;
     ps(&table);
